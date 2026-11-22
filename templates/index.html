@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Monitor - Мониторинг WiFi сетей</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛜 Wi-Fi-монитор</h1>
+            <p class="subtitle">Мониторинг и анализ беспроводных сетей</p>
+            <div class="header-actions">
+                <button id="scanBtn" class="btn btn-primary">🔄 Сканировать</button>
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Инициализация...</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard">
+
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">📡</div>
+                    <div class="stat-content">
+                        <h3 id="networkCount">0</h3>
+                        <p>Обнаруженных сетей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔐</div>
+                    <div class="stat-content">
+                        <h3 id="secureCount">0</h3>
+                        <p>Защищенных сетей</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📶</div>
+                    <div class="stat-content">
+                        <h3 id="avgSignal">0%</h3>
+                        <p>Средний сигнал</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3 id="issueCount">0</h3>
+                        <p>Проблем обнаружено</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alerts-section">
+                <div class="card">
+                    <h2>💡 Рекомендации</h2>
+                    <div id="recommendations" class="recommendations-list">
+                        <p class="loading">Ожидание данных сканирования...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>⚠️ Обнаруженные проблемы</h2>
+                    <div id="issues" class="issues-list">
+                        <p class="loading">Ожидание данных сканирования...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts-section">
+                <div class="card chart-card">
+                    <h2>📊 Загрузка каналов 2.4 GHz</h2>
+                    <canvas id="channelChart"></canvas>
+                </div>
+                <div class="card chart-card">
+                    <h2>🔒 Распределение по безопасности</h2>
+                    <canvas id="securityChart"></canvas>
+                </div>
+            </section>
+
+            <section class="networks-section">
+                <div class="card">
+                    <h2>📋 Обнаруженные сети</h2>
+                    <div class="filters">
+                        <input type="text" id="searchInput" placeholder="🔍 Поиск по SSID..." class="search-input">
+                        <select id="sortSelect" class="sort-select">
+                            <option value="signal">Сортировка: По сигналу</option>
+                            <option value="name">Сортировка: По имени</option>
+                            <option value="channel">Сортировка: По каналу</option>
+                            <option value="security">Сортировка: По безопасности</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table id="networksTable">
+                            <thead>
+                                <tr>
+                                    <th>SSID</th>
+                                    <th>Сигнал</th>
+                                    <th>Канал</th>
+                                    <th>Безопасность</th>
+                                    <th>Качество</th>
+                                    <th>MAC</th>
+                                </tr>
+                            </thead>
+                            <tbody id="networksTableBody">
+                                <tr>
+                                    <td colspan="6" class="loading">Загрузка данных...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="best-network-section">
+                <div class="card best-network-card">
+                    <h2>🏆 Рекомендуемая сеть для подключения</h2>
+                    <div id="bestNetwork" class="best-network-content">
+                        <p class="loading">Анализ данных...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>WiFi Monitor v1.0 | Последнее обновление: <span id="lastUpdate">-</span></p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
